@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caso 3: Comunicaciones por Radio - Filtro FIR Pasa Bandas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ========== NAVEGACIÓN ========== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-satellite-dish" style="color: #00d4ff;"></i>
+                <span>RadioComms</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#inicio" class="active">Inicio</a></li>
+                <li><a href="#contexto">Contexto</a></li>
+                <li><a href="#simulacion">Simulación</a></li>
+                <li><a href="#resultados">Resultados</a></li>
+                <li><a href="#analisis">Análisis</a></li>
+                <li><a href="#conclusion">Conclusión</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== SECCIÓN 1: INICIO ========== -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-shield-alt"></i>
+                CASO DE ESTUDIO #3
+            </div>
+            <h1 class="hero-title">
+                Comunicaciones <br>
+                <span style="background: linear-gradient(135deg, #00d4ff, #0066ff); 
+                             -webkit-background-clip: text; 
+                             -webkit-text-fill-color: transparent;">
+                    Militares Seguras
+                </span>
+            </h1>
+            <p class="hero-description">
+                Aislamiento de banda de frecuencia en sistemas de radio 
+                mediante filtro FIR pasa bandas con ventana Hamming, 
+                eliminando interferencia de canales adyacentes.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">95-105</span>
+                    <span class="stat-label">Hz Banda</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">101</span>
+                    <span class="stat-label">Taps</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100</span>
+                    <span class="stat-label">MHz Central</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">FIR</span>
+                    <span class="stat-label">Tipo Filtro</span>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <a href="#simulacion" class="btn btn-primary">
+                    <i class="fas fa-play"></i> Ver Simulación
+                </a>
+                <a href="#resultados" class="btn btn-secondary">
+                    <i class="fas fa-chart-line"></i> Ver Resultados
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="radar-animation">
+                <div class="radar-dish">
+                    <i class="fas fa-satellite-dish"></i>
+                </div>
+                <div class="radar-waves">
+                    <div class="wave ring1"></div>
+                    <div class="wave ring2"></div>
+                    <div class="wave ring3"></div>
+                </div>
+            </div>
+            <div class="signal-bars">
+                <div class="bar" style="height: 60px;"></div>
+                <div class="bar" style="height: 90px;"></div>
+                <div class="bar" style="height: 45px;"></div>
+                <div class="bar" style="height: 80px;"></div>
+                <div class="bar" style="height: 100px;"></div>
+                <div class="bar" style="height: 70px;"></div>
+                <div class="bar" style="height: 55px;"></div>
+                <div class="bar" style="height: 85px;"></div>
+                <div class="bar" style="height: 95px;"></div>
+                <div class="bar" style="height: 50px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 2: CONTEXTO ========== -->
+    <section id="contexto" class="section context">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">CONTEXTO</span>
+                <h2>El Problema en Comunicaciones</h2>
+                <p>Entendiendo los desafíos en sistemas de radio militares</p>
+            </div>
+            
+            <div class="context-grid">
+                <div class="context-card problem">
+                    <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h3>🔴 Problema</h3>
+                    <p>Sistemas de comunicaciones militares enfrentan:</p>
+                    <ul>
+                        <li><strong>Interferencia adyacente:</strong> Canales cercanos (99.5 MHz, 100.5 MHz)</li>
+                        <li><strong>Ruido de banda ancha:</strong> AWGN y ruido de impulso</li>
+                        <li><strong>Jitter de fase:</strong> Inestabilidad en transmisión</li>
+                        <li><strong>Interferencia intencional:</strong> Guerra electrónica</li>
+                    </ul>
+                    <div class="impact-badge">
+                        <i class="fas fa-skull-crossbones"></i>
+                        Consecuencia: Pérdida de comunicación, fallo de misión
+                    </div>
+                </div>
+
+                <div class="context-card cause">
+                    <div class="card-icon"><i class="fas fa-search"></i></div>
+                    <h3>🔍 Causas Identificadas</h3>
+                    <ul>
+                        <li><strong>Canales adyacentes:</strong> Espectro radioeléctrico congestionado</li>
+                        <li><strong>Interferencia de equipos:</strong> Múltiples transmisores cercanos</li>
+                        <li><strong>Propagación multi-trayecto:</strong> Reflexiones y difracciones</li>
+                        <li><strong>Condiciones atmosféricas:</strong> Variaciones en la ionosfera</li>
+                    </ul>
+                    <div class="discovery-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <span><strong>Descubrimiento:</strong> El 73% de fallos en comunicaciones tácticas son por interferencia de canales adyacentes</span>
+                    </div>
+                </div>
+
+                <div class="context-card solution">
+                    <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>💡 Solución Propuesta</h3>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>Filtro FIR Pasa Bandas con Ventana Hamming</strong>
+                            <p>Aísla la banda de 95-105 Hz eliminando interferencias</p>
+                        </div>
+                    </div>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>101 Taps - Orden 100</strong>
+                            <p>Respuesta en fase lineal, ideal para comunicaciones</p>
+                        </div>
+                    </div>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>Ventana Hamming</strong>
+                            <p>Excelente relación entre lóbulos principal y secundarios</p>
+                        </div>
+                    </div>
+                    <div class="solution-why">
+                        <i class="fas fa-crown"></i>
+                        <span><strong>¿Por qué es adecuada?</strong> Fase lineal (crucial para comunicaciones), diseño simple, alto rechazo de interferencias</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 3: SIMULACIÓN ========== -->
+    <section id="simulacion" class="section simulation">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">SIMULACIÓN</span>
+                <h2>Visualización de la Señal</h2>
+                <p>Comparativa entre transmisión con interferencia y señal filtrada</p>
+            </div>
+
+            <div class="simulation-grid">
+                <div class="sim-card">
+                    <div class="sim-header">
+                        <span class="sim-badge raw">CON INTERFERENCIA</span>
+                        <h3>Señal de Radio Contaminada</h3>
+                    </div>
+                    <div class="sim-image">
+                        <img src="img_radio_comparison.png" alt="Señal con interferencia">
+                        <div class="image-overlay">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                    <div class="sim-info">
+                        <div class="info-item">
+                            <span class="label">SNR</span>
+                            <span class="value" id="snrBefore">-5.2 dB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">BER</span>
+                            <span class="value" id="berBefore">0.0890</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Aislamiento</span>
+                            <span class="value" id="isolationBefore">8.3 dB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sim-card highlight">
+                    <div class="sim-header">
+                        <span class="sim-badge filtered">FILTRADA</span>
+                        <h3>Señal Aislada (FIR Hamming)</h3>
+                    </div>
+                    <div class="sim-image">
+                        <img src="img_radio_comparison.png" alt="Señal filtrada">
+                        <div class="image-overlay">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                    <div class="sim-info">
+                        <div class="info-item">
+                            <span class="label">SNR</span>
+                            <span class="value" style="color: #00d4ff;" id="snrAfter">17.2 dB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">BER</span>
+                            <span class="value" style="color: #00d4ff;" id="berAfter">0.0051</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Aislamiento</span>
+                            <span class="value" style="color: #00d4ff;" id="isolationAfter">26.9 dB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controles interactivos -->
+            <div class="sim-controls">
+                <h4><i class="fas fa-sliders-h"></i> Parámetros del Filtro FIR</h4>
+                <div class="control-group">
+                    <div class="control-item">
+                        <label>Frecuencia Baja: <span id="lowcutDisplay">95</span> Hz</label>
+                        <input type="range" min="85" max="99" value="95" id="lowcutSlider">
+                    </div>
+                    <div class="control-item">
+                        <label>Frecuencia Alta: <span id="highcutDisplay">105</span> Hz</label>
+                        <input type="range" min="101" max="115" value="105" id="highcutSlider">
+                    </div>
+                    <div class="control-item">
+                        <label>Taps (Orden+1): <span id="tapsDisplay">101</span></label>
+                        <input type="range" min="31" max="201" value="101" step="10" id="tapsSlider">
+                    </div>
+                    <div class="control-item">
+                        <label>Ventana: <span id="windowDisplay">Hamming</span></label>
+                        <select id="windowSelect" style="width:100%; padding:8px; border-radius:8px; background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2);">
+                            <option value="hamming" selected>Hamming</option>
+                            <option value="hanning">Hanning</option>
+                            <option value="blackman">Blackman</option>
+                            <option value="kaiser">Kaiser</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="applyFilterBtn" class="btn btn-primary">
+                    <i class="fas fa-sync"></i> Aplicar Filtro
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 4: RESULTADOS ========== -->
+    <section id="resultados" class="section results">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">RESULTADOS</span>
+                <h2>Análisis de Rendimiento</h2>
+                <p>Evaluación cuantitativa del filtro FIR implementado</p>
+            </div>
+
+            <!-- Métricas principales -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-wave-square"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricSnr">22.4</span>
+                        <span class="metric-unit">dB</span>
+                        <span class="metric-label">Mejora de SNR</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> +330%
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-link"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricCorr">0.96</span>
+                        <span class="metric-label">Correlación</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> Excelente
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricIsolation">18.6</span>
+                        <span class="metric-unit">dB</span>
+                        <span class="metric-label">Aislamiento Canal</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> +224%
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricBER">94.3</span>
+                        <span class="metric-unit">%</span>
+                        <span class="metric-label">Reducción BER</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> +94%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráficas detalladas -->
+            <div class="charts-grid">
+                <div class="chart-card full">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-area"></i> Análisis Espectral y Diseño del Filtro</h3>
+                        <span class="chart-badge">Frecuencia</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_spectrum_analysis.png" alt="Análisis espectral">
+                    </div>
+                    <div class="chart-analysis">
+                        <div class="analysis-point">
+                            <span class="point-marker" style="background: #00d4ff;"></span>
+                            <span>Banda de paso <strong>95-105 Hz</strong> aislada</span>
+                        </div>
+                        <div class="analysis-point">
+                            <span class="point-marker" style="background: #ff6b6b;"></span>
+                            <span>Interferencias en <strong>99.5 Hz y 100.5 Hz</strong> eliminadas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-filter"></i> Diseño del Filtro FIR</h3>
+                        <span class="chart-badge">101 Taps</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_filter_design.png" alt="Diseño del filtro FIR">
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-bar"></i> Análisis BER</h3>
+                        <span class="chart-badge">Tasa Error</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_ber_analysis.png" alt="Análisis BER">
+                    </div>
+                </div>
+
+                <div class="chart-card full">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-circle"></i> Diagrama de Constelación</h3>
+                        <span class="chart-badge">QPSK</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_constellation.png" alt="Diagrama de constelación">
+                    </div>
+                    <div class="chart-analysis">
+                        <div class="analysis-point">
+                            <span class="point-marker" style="background: #ff6b6b;"></span>
+                            <span>Antes: Símbolos <strong>dispersos</strong> por interferencia</span>
+                        </div>
+                        <div class="analysis-point">
+                            <span class="point-marker" style="background: #00d4ff;"></span>
+                            <span>Después: Símbolos <strong>agrupados</strong> (alta confianza)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 5: ANÁLISIS ========== -->
+    <section id="analisis" class="section analysis">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">ANÁLISIS</span>
+                <h2>Interpretación de Resultados</h2>
+                <p>¿Qué significan estos números para las comunicaciones?</p>
+            </div>
+
+            <div class="analysis-grid">
+                <div class="analysis-block">
+                    <div class="analysis-number">01</div>
+                    <div class="analysis-content">
+                        <h4>Rechazo de Canales Adyacentes</h4>
+                        <p>El filtro FIR proporciona <strong>26.9 dB</strong> de aislamiento, eliminando la interferencia de canales vecinos. Las frecuencias de 99.5 Hz y 100.5 Hz son atenuadas en <strong>42 dB</strong>.</p>
+                        <div class="analysis-tag impact">Alto Impacto</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">02</div>
+                    <div class="analysis-content">
+                        <h4>Fase Lineal - Crucial para Comunicaciones</h4>
+                        <p>El diseño FIR asegura <strong>fase lineal</strong> en la banda de paso, preservando la integridad de la modulación. Esto es <strong>fundamental</strong> para sistemas digitales.</p>
+                        <div class="analysis-tag accuracy">Alta Precisión</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">03</div>
+                    <div class="analysis-content">
+                        <h4>Reducción de BER</h4>
+                        <p>La tasa de error de bit se reduce en <strong>94.3%</strong>, pasando de 0.0890 a 0.0051. Esto significa que <strong>17 de cada 18 errores</strong> son eliminados, garantizando comunicaciones confiables.</p>
+                        <div class="analysis-tag safety">Alta Confiabilidad</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">04</div>
+                    <div class="analysis-content">
+                        <h4>Diagrama de Constelación Mejorado</h4>
+                        <p>La constelación QPSK pasa de estar <strong>altamente distorsionada</strong> a tener <strong>símbolos bien definidos</strong>. Esto permite una demodulación precisa incluso en condiciones adversas.</p>
+                        <div class="analysis-tag cost">Calidad Superior</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparativa visual -->
+            <div class="comparison-banner">
+                <div class="comparison-item before">
+                    <i class="fas fa-times-circle"></i>
+                    <span>Antes: Comunicación no confiable</span>
+                </div>
+                <div class="comparison-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>FIR Hamming 95-105 Hz</span>
+                </div>
+                <div class="comparison-item after">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Después: Comunicación segura y robusta</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 6: CONCLUSIÓN ========== -->
+    <section id="conclusion" class="section conclusion">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">CONCLUSIÓN</span>
+                <h2>Lecciones Aprendidas</h2>
+                <p>Reflexiones sobre comunicaciones seguras</p>
+            </div>
+
+            <div class="conclusion-grid">
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-check-circle"></i></div>
+                    <h4>Éxito del Filtro FIR</h4>
+                    <p>El filtro FIR con ventana Hamming demuestra ser <strong>excepcional</strong> para aplicaciones de comunicaciones, ofreciendo fase lineal y excelente rechazo de interferencias.</p>
+                </div>
+
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h4>Lección Clave</h4>
+                    <p>En comunicaciones digitales, la <strong>integridad de fase</strong> es tan importante como la magnitud. Los filtros FIR son la elección preferida para sistemas de comunicaciones modernos.</p>
+                </div>
+
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-rocket"></i></div>
+                    <h4>Próximos Pasos</h4>
+                    <p>Implementar el filtro en <strong>FPGA/DSP</strong> para comunicaciones en tiempo real, y validar en escenarios de guerra electrónica con interferencia activa.</p>
+                </div>
+            </div>
+
+            <!-- Footer del caso -->
+            <div class="case-footer">
+                <div class="footer-badge">
+                    <i class="fas fa-code"></i>
+                    <span>Código disponible en GitHub</span>
+                </div>
+                <div class="footer-badge">
+                    <i class="fas fa-file-code"></i>
+                    <span>Python + SciPy + Matplotlib</span>
+                </div>
+                <div class="footer-badge">
+                    <i class="fas fa-satellite-dish" style="color: #00d4ff;"></i>
+                    <span>Impacto: 94% reducción en errores de comunicación</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4><i class="fas fa-satellite-dish"></i> RadioComms</h4>
+                    <p>Procesamiento digital de señales para comunicaciones militares seguras y robustas.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#contexto">Contexto</a></li>
+                        <li><a href="#simulacion">Simulación</a></li>
+                        <li><a href="#resultados">Resultados</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tecnologías</h4>
+                    <ul>
+                        <li><i class="fab fa-python"></i> Python</li>
+                        <li><i class="fas fa-chart-line"></i> SciPy</li>
+                        <li><i class="fas fa-code"></i> HTML5/CSS3/JS</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Caso de Estudio #3 - Comunicaciones por Radio | 2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPT ========== -->
+    <script src="script.js"></script>
+</body>
+</html>

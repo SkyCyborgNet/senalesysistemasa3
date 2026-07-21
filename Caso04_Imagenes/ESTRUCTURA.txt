@@ -1,0 +1,20 @@
+/Caso04_Imagenes/
+│
+├── index.html                    # Página principal del Caso 4
+├── style.css                     # Estilos visuales (tema médico/tecnológico)
+├── script.js                     # Interactividad y gráficos
+│
+├── image_filter.py               # ✅ Código Python principal
+├── requirements.txt              # Dependencias Python
+│
+├── data_image.csv                # ✅ GENERADO POR image_filter.py
+│
+├── img_original_image.png        # ✅ GENERADO POR image_filter.py
+├── img_noisy_image.png           # ✅ GENERADO POR image_filter.py
+├── img_filtered_image.png        # ✅ GENERADO POR image_filter.py
+├── img_comparison.png            # ✅ GENERADO POR image_filter.py
+├── img_frequency_response.png    # ✅ GENERADO POR image_filter.py
+├── img_metrics_analysis.png      # ✅ GENERADO POR image_filter.py
+├── img_edge_preservation.png     # ✅ GENERADO POR image_filter.py
+│
+└── README.md                     # Documentación del caso

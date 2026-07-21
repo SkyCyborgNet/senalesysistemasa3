@@ -1,0 +1,22 @@
+/ecg_monitoring/
+│
+├── index.html                    # Página principal del Caso 1
+├── style.css                     # Estilos visuales impactantes
+├── script.js                     # Interactividad y gráficos
+│
+├── ecg_filter.py                 # Código Python principal
+├── requirements.txt              # Dependencias Python
+│
+├── data_ecg.csv                  # Datos generados (señal ECG)
+├── data_filtered.csv             # Datos filtrados
+│
+├── img_ecg_raw.png               # Imagen: Señal ECG cruda
+├── img_ecg_filtered.png          # Imagen: Señal ECG filtrada
+├── img_ecg_comparison.png        # Imagen: Comparación lado a lado
+├── img_frequency_response.png    # Imagen: Respuesta en frecuencia
+├── img_spectrogram_raw.png       # Imagen: Espectrograma crudo
+├── img_spectrogram_filtered.png  # Imagen: Espectrograma filtrado
+├── img_heart_detection.png       # Imagen: Detección de latidos
+├── img_noise_analysis.png        # Imagen: Análisis de ruido
+│
+└── README.md                     # Documentación del caso

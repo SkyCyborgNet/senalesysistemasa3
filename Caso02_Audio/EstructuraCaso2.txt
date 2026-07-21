@@ -1,0 +1,19 @@
+/audio_restoration/
+│
+├── index.html                    # Página principal del Caso 2
+├── style.css                     # Estilos visuales
+├── script.js                     # Interactividad y gráficos
+│
+├── audio_filter.py               # ✅ Código Python principal
+├── requirements.txt              # Dependencias Python
+│
+├── data_audio.csv                # ✅ GENERADO POR audio_filter.py
+│                                 # Contiene: Time, Audio_Clean, Audio_Noisy, Audio_Filtered
+│
+├── img_audio_comparison.png      # ✅ GENERADO POR audio_filter.py
+├── img_frequency_response.png    # ✅ GENERADO POR audio_filter.py
+├── img_spectrogram_comparison.png# ✅ GENERADO POR audio_filter.py
+├── img_noise_analysis.png        # ✅ GENERADO POR audio_filter.py
+├── img_voice_preservation.png    # ✅ GENERADO POR audio_filter.py
+│
+└── README.md                     # Documentación del caso

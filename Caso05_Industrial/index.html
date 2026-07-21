@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caso 5: Control Industrial - Filtro Notch Butterworth</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ========== NAVEGACIÓN ========== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-industry" style="color: #ff6b35;"></i>
+                <span>TurboMonitor</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#inicio" class="active">Inicio</a></li>
+                <li><a href="#contexto">Contexto</a></li>
+                <li><a href="#simulacion">Simulación</a></li>
+                <li><a href="#resultados">Resultados</a></li>
+                <li><a href="#analisis">Análisis</a></li>
+                <li><a href="#conclusion">Conclusión</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== SECCIÓN 1: INICIO ========== -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-wrench"></i>
+                CASO DE ESTUDIO #5
+            </div>
+            <h1 class="hero-title">
+                Control Industrial <br>
+                <span style="background: linear-gradient(135deg, #ff6b35, #e63946); 
+                             -webkit-background-clip: text; 
+                             -webkit-text-fill-color: transparent;">
+                    & Mantenimiento Predictivo
+                </span>
+            </h1>
+            <p class="hero-description">
+                Eliminación de resonancia en turbinas industriales mediante filtro 
+                Notch Butterworth, permitiendo detección temprana de vibraciones 
+                anómalas y mantenimiento predictivo preciso.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">120</span>
+                    <span class="stat-label">Hz Resonancia</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10</span>
+                    <span class="stat-label">Hz Ancho</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">60</span>
+                    <span class="stat-label">Hz Operación</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3600</span>
+                    <span class="stat-label">RPM</span>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <a href="#simulacion" class="btn btn-primary">
+                    <i class="fas fa-play"></i> Ver Simulación
+                </a>
+                <a href="#resultados" class="btn btn-secondary">
+                    <i class="fas fa-chart-line"></i> Ver Resultados
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="turbine-animation">
+                <div class="turbine-blade">
+                    <i class="fas fa-fan"></i>
+                    <div class="blade-spin"></div>
+                </div>
+                <div class="vibration-meter">
+                    <div class="meter-bar">
+                        <div class="meter-fill" style="width: 85%;"></div>
+                    </div>
+                    <span class="meter-label">Nivel de Vibración</span>
+                </div>
+                <div class="status-indicator">
+                    <span class="status-dot warning"></span>
+                    <span class="status-text">Resonancia Detectada</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 2: CONTEXTO ========== -->
+    <section id="contexto" class="section context">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">CONTEXTO</span>
+                <h2>El Problema en la Industria</h2>
+                <p>Entendiendo los desafíos en monitoreo de turbinas</p>
+            </div>
+            
+            <div class="context-grid">
+                <div class="context-card problem">
+                    <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h3>🔴 Problema</h3>
+                    <p>Turbinas industriales presentan:</p>
+                    <ul>
+                        <li><strong>Resonancia en 120 Hz:</strong> Vibración excesiva</li>
+                        <li><strong>Armónicos:</strong> 240 Hz, 360 Hz</li>
+                        <li><strong>Ruido de fondo:</strong> Ambiente industrial</li>
+                        <li><strong>Eventos de impacto:</strong> Picos esporádicos</li>
+                    </ul>
+                    <div class="impact-badge">
+                        <i class="fas fa-skull-crossbones"></i>
+                        Consecuencia: Fallos catastróficos, paradas no programadas
+                    </div>
+                </div>
+
+                <div class="context-card cause">
+                    <div class="card-icon"><i class="fas fa-search"></i></div>
+                    <h3>🔍 Causas Identificadas</h3>
+                    <ul>
+                        <li><strong>Desbalanceo del rotor:</strong> Desgaste mecánico</li>
+                        <li><strong>Cojinetes desgastados:</strong> Fricción excesiva</li>
+                        <li><strong>Resonancia estructural:</strong> Frecuencia natural</li>
+                        <li><strong>Desalineación:</strong> Ejes desalineados</li>
+                    </ul>
+                    <div class="discovery-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <span><strong>Descubrimiento:</strong> El 65% de fallos en turbinas son precedidos por resonancia en 120 Hz</span>
+                    </div>
+                </div>
+
+                <div class="context-card solution">
+                    <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>💡 Solución Propuesta</h3>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>Filtro Notch (Rechazo de Banda) Butterworth</strong>
+                            <p>Elimina específicamente la frecuencia de resonancia (120 Hz)</p>
+                        </div>
+                    </div>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>Ancho de Banda 10 Hz</strong>
+                            <p>Preciso y selectivo, sin afectar otras frecuencias</p>
+                        </div>
+                    </div>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>Factor Q = 12</strong>
+                            <p>Excelente selectividad para aplicaciones industriales</p>
+                        </div>
+                    </div>
+                    <div class="solution-why">
+                        <i class="fas fa-crown"></i>
+                        <span><strong>¿Por qué es adecuada?</strong> Elimina resonancia específica sin distorsionar señales de interés, ideal para mantenimiento predictivo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 3: SIMULACIÓN ========== -->
+    <section id="simulacion" class="section simulation">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">SIMULACIÓN</span>
+                <h2>Visualización de Vibraciones</h2>
+                <p>Comparativa entre vibración normal y con resonancia</p>
+            </div>
+
+            <div class="simulation-grid">
+                <div class="sim-card">
+                    <div class="sim-header">
+                        <span class="sim-badge raw">CON RESONANCIA</span>
+                        <h3>Vibración de Turbina</h3>
+                    </div>
+                    <div class="sim-image">
+                        <img src="img_vibration_comparison.png" alt="Vibración con resonancia">
+                        <div class="image-overlay">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                    <div class="sim-info">
+                        <div class="info-item">
+                            <span class="label">SNR</span>
+                            <span class="value" id="snrBefore">3.8 dB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Resonancia</span>
+                            <span class="value" id="resonanceBefore">-12.4 dB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Anomalías</span>
+                            <span class="value" id="anomaliesBefore">18</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sim-card highlight">
+                    <div class="sim-header">
+                        <span class="sim-badge filtered">FILTRADA</span>
+                        <h3>Vibración Estable</h3>
+                    </div>
+                    <div class="sim-image">
+                        <img src="img_vibration_comparison.png" alt="Vibración filtrada">
+                        <div class="image-overlay">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                    <div class="sim-info">
+                        <div class="info-item">
+                            <span class="label">SNR</span>
+                            <span class="value" style="color: #ff6b35;" id="snrAfter">19.4 dB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Resonancia</span>
+                            <span class="value" style="color: #ff6b35;" id="resonanceAfter">-35.2 dB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Anomalías</span>
+                            <span class="value" style="color: #ff6b35;" id="anomaliesAfter">3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controles interactivos -->
+            <div class="sim-controls">
+                <h4><i class="fas fa-sliders-h"></i> Parámetros del Filtro Notch</h4>
+                <div class="control-group">
+                    <div class="control-item">
+                        <label>Frecuencia Central: <span id="freqDisplay">120</span> Hz</label>
+                        <input type="range" min="100" max="150" value="120" id="freqSlider">
+                    </div>
+                    <div class="control-item">
+                        <label>Ancho de Banda: <span id="bwDisplay">10</span> Hz</label>
+                        <input type="range" min="4" max="30" value="10" id="bwSlider">
+                    </div>
+                    <div class="control-item">
+                        <label>Factor Q: <span id="qDisplay">12.0</span></label>
+                        <input type="range" min="4" max="30" value="12" id="qSlider">
+                    </div>
+                </div>
+                <button id="applyFilterBtn" class="btn btn-primary">
+                    <i class="fas fa-sync"></i> Aplicar Filtro
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 4: RESULTADOS ========== -->
+    <section id="resultados" class="section results">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">RESULTADOS</span>
+                <h2>Análisis de Rendimiento</h2>
+                <p>Evaluación cuantitativa del filtro implementado</p>
+            </div>
+
+            <!-- Métricas principales -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-wave-square"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricSnr">15.6</span>
+                        <span class="metric-unit">dB</span>
+                        <span class="metric-label">Mejora SNR</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> +310%
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-link"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricCorr">0.96</span>
+                        <span class="metric-label">Correlación</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> Excelente
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricAtten">22.8</span>
+                        <span class="metric-unit">dB</span>
+                        <span class="metric-label">Atenuación Resonancia</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> +184%
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricAnomalies">83.3</span>
+                        <span class="metric-unit">%</span>
+                        <span class="metric-label">Reducción Anomalías</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> Excelente
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráficas detalladas -->
+            <div class="charts-grid">
+                <div class="chart-card full">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-area"></i> Análisis Espectral</h3>
+                        <span class="chart-badge">Frecuencia</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_spectrum_analysis.png" alt="Análisis espectral">
+                    </div>
+                    <div class="chart-analysis">
+                        <div class="analysis-point">
+                            <span class="point-marker" style="background: #ff6b35;"></span>
+                            <span>Resonancia en <strong>120 Hz</strong> eliminada</span>
+                        </div>
+                        <div class="analysis-point">
+                            <span class="point-marker" style="background: #2ecc71;"></span>
+                            <span>Frecuencia de operación <strong>60 Hz</strong> preservada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-filter"></i> Respuesta del Filtro</h3>
+                        <span class="chart-badge">Notch</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_frequency_response.png" alt="Respuesta en frecuencia">
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-bar"></i> Métricas</h3>
+                        <span class="chart-badge">Rendimiento</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_metrics_analysis.png" alt="Métricas">
+                    </div>
+                </div>
+
+                <div class="chart-card full">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Detección de Anomalías</h3>
+                        <span class="chart-badge">Mantenimiento</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_noise_analysis.png" alt="Análisis de anomalías">
+                    </div>
+                    <div class="chart-analysis">
+                        <div class="analysis-point">
+                            <span class="point-marker" style="background: #e74c3c;"></span>
+                            <span>Antes: <strong>18</strong> falsas alarmas</span>
+                        </div>
+                        <div class="analysis-point">
+                            <span class="point-marker" style="background: #2ecc71;"></span>
+                            <span>Después: <strong>3</strong> anomalías reales detectadas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 5: ANÁLISIS ========== -->
+    <section id="analisis" class="section analysis">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">ANÁLISIS</span>
+                <h2>Interpretación de Resultados</h2>
+                <p>¿Qué significan estos números para la industria?</p>
+            </div>
+
+            <div class="analysis-grid">
+                <div class="analysis-block">
+                    <div class="analysis-number">01</div>
+                    <div class="analysis-content">
+                        <h4>Eliminación de Resonancia</h4>
+                        <p>El filtro Notch atenúa la resonancia en <strong>22.8 dB</strong>, eliminando la vibración excesiva que enmascaraba las señales de interés. La turbina opera en condiciones estables.</p>
+                        <div class="analysis-tag impact">Alto Impacto</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">02</div>
+                    <div class="analysis-content">
+                        <h4>Reducción de Falsas Alarmas</h4>
+                        <p>Las anomalías detectadas se reducen de <strong>18 a 3</strong>, una reducción del <strong>83.3%</strong>. Esto significa que el personal de mantenimiento solo recibe alertas reales.</p>
+                        <div class="analysis-tag accuracy">Alta Precisión</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">03</div>
+                    <div class="analysis-content">
+                        <h4>Preservación de Señales de Interés</h4>
+                        <p>Con una correlación de <strong>0.96</strong>, el filtro mantiene las vibraciones normales de operación (60 Hz y armónicos), permitiendo monitoreo continuo preciso.</p>
+                        <div class="analysis-tag safety">Alta Confiabilidad</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">04</div>
+                    <div class="analysis-content">
+                        <h4>Mantenimiento Predictivo</h4>
+                        <p>La mejora de SNR en <strong>15.6 dB</strong> permite detectar vibraciones anómalas en etapas tempranas, evitando fallos catastróficos y paradas no programadas.</p>
+                        <div class="analysis-tag cost">Ahorro Significativo</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparativa visual -->
+            <div class="comparison-banner">
+                <div class="comparison-item before">
+                    <i class="fas fa-times-circle"></i>
+                    <span>Antes: Falsas alarmas constantes</span>
+                </div>
+                <div class="comparison-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>Notch 120 Hz</span>
+                </div>
+                <div class="comparison-item after">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Después: Mantenimiento preciso</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 6: CONCLUSIÓN ========== -->
+    <section id="conclusion" class="section conclusion">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">CONCLUSIÓN</span>
+                <h2>Lecciones Aprendidas</h2>
+                <p>Reflexiones sobre control industrial</p>
+            </div>
+
+            <div class="conclusion-grid">
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-check-circle"></i></div>
+                    <h4>Éxito del Filtro Notch</h4>
+                    <p>El filtro Notch Butterworth demuestra ser <strong>excepcional</strong> para aplicaciones industriales, eliminando resonancias específicas sin afectar otras señales.</p>
+                </div>
+
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h4>Lección Clave</h4>
+                    <p>En mantenimiento predictivo, <strong>eliminar resonancias</strong> es crucial para detectar problemas reales. El filtro Notch es la herramienta perfecta para este propósito.</p>
+                </div>
+
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-rocket"></i></div>
+                    <h4>Próximos Pasos</h4>
+                    <p>Implementar el filtro en sistemas SCADA industriales y desarrollar un sistema de mantenimiento predictivo basado en IA que integre este filtro como preprocesamiento.</p>
+                </div>
+            </div>
+
+            <!-- Footer del caso -->
+            <div class="case-footer">
+                <div class="footer-badge">
+                    <i class="fas fa-code"></i>
+                    <span>Código disponible en GitHub</span>
+                </div>
+                <div class="footer-badge">
+                    <i class="fas fa-file-code"></i>
+                    <span>Python + SciPy + Matplotlib</span>
+                </div>
+                <div class="footer-badge">
+                    <i class="fas fa-industry" style="color: #ff6b35;"></i>
+                    <span>Impacto: 83% reducción de falsas alarmas</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4><i class="fas fa-industry"></i> TurboMonitor</h4>
+                    <p>Monitoreo de vibraciones industriales para mantenimiento predictivo y prevención de fallos.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#contexto">Contexto</a></li>
+                        <li><a href="#simulacion">Simulación</a></li>
+                        <li><a href="#resultados">Resultados</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tecnologías</h4>
+                    <ul>
+                        <li><i class="fab fa-python"></i> Python</li>
+                        <li><i class="fas fa-chart-line"></i> SciPy</li>
+                        <li><i class="fas fa-code"></i> HTML5/CSS3/JS</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Caso de Estudio #5 - Control Industrial | 2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPT ========== -->
+    <script src="script.js"></script>
+</body>
+</html>

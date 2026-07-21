@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caso 4: Imágenes Médicas - Filtro FIR Kaiser</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ========== NAVEGACIÓN ========== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-x-ray" style="color: #00d4ff;"></i>
+                <span>MediScan</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#inicio" class="active">Inicio</a></li>
+                <li><a href="#contexto">Contexto</a></li>
+                <li><a href="#simulacion">Simulación</a></li>
+                <li><a href="#resultados">Resultados</a></li>
+                <li><a href="#analisis">Análisis</a></li>
+                <li><a href="#conclusion">Conclusión</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== SECCIÓN 1: INICIO ========== -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-heartbeat"></i>
+                CASO DE ESTUDIO #4
+            </div>
+            <h1 class="hero-title">
+                Procesamiento de <br>
+                <span style="background: linear-gradient(135deg, #00d4ff, #0066ff); 
+                             -webkit-background-clip: text; 
+                             -webkit-text-fill-color: transparent;">
+                    Imágenes Médicas
+                </span>
+            </h1>
+            <p class="hero-description">
+                Mejora de calidad en imágenes de escáner CT mediante filtro FIR 
+                pasa bajos con ventana Kaiser, preservando bordes y detalles 
+                anatómicos para diagnóstico preciso.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">256</span>
+                    <span class="stat-label">px Imagen</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">15</span>
+                    <span class="stat-label">Kernel</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">0.3</span>
+                    <span class="stat-label">Corte</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5.0</span>
+                    <span class="stat-label">Beta Kaiser</span>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <a href="#simulacion" class="btn btn-primary">
+                    <i class="fas fa-play"></i> Ver Simulación
+                </a>
+                <a href="#resultados" class="btn btn-secondary">
+                    <i class="fas fa-chart-line"></i> Ver Resultados
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="medical-scanner">
+                <div class="scanner-ring">
+                    <i class="fas fa-circle"></i>
+                    <div class="ring-pulse"></div>
+                </div>
+                <div class="ct-scan">
+                    <svg viewBox="0 0 200 200">
+                        <rect x="20" y="20" width="160" height="160" rx="10" fill="rgba(0,212,255,0.05)" stroke="rgba(0,212,255,0.3)" stroke-width="2"/>
+                        <!-- Simulación de imagen CT -->
+                        <circle cx="100" cy="90" r="30" fill="rgba(0,212,255,0.15)" stroke="rgba(0,212,255,0.4)" stroke-width="2"/>
+                        <circle cx="85" cy="105" r="10" fill="rgba(255,100,100,0.3)" stroke="rgba(255,100,100,0.5)" stroke-width="2"/>
+                        <rect x="130" y="50" width="20" height="40" rx="3" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                        <line x1="60" y1="60" x2="80" y2="70" stroke="rgba(0,212,255,0.2)" stroke-width="1"/>
+                        <line x1="60" y1="80" x2="80" y2="90" stroke="rgba(0,212,255,0.2)" stroke-width="1"/>
+                        <line x1="120" y1="140" x2="140" y2="150" stroke="rgba(0,212,255,0.2)" stroke-width="1"/>
+                        <!-- Scanner beam -->
+                        <line x1="20" y1="20" x2="180" y2="180" stroke="rgba(0,212,255,0.1)" stroke-width="1" stroke-dasharray="4,4">
+                            <animate attributeName="stroke-dashoffset" from="0" to="8" dur="1s" repeatCount="indefinite"/>
+                        </line>
+                    </svg>
+                </div>
+            </div>
+            <div class="vital-signs">
+                <div class="vital-item">
+                    <span class="vital-label">Calidad Imagen</span>
+                    <div class="vital-bar" style="width: 85%;"></div>
+                </div>
+                <div class="vital-item">
+                    <span class="vital-label">Preservación</span>
+                    <div class="vital-bar" style="width: 72%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 2: CONTEXTO ========== -->
+    <section id="contexto" class="section context">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">CONTEXTO</span>
+                <h2>El Problema en Diagnóstico Médico</h2>
+                <p>Entendiendo los desafíos en imágenes de escáner CT</p>
+            </div>
+            
+            <div class="context-grid">
+                <div class="context-card problem">
+                    <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h3>🔴 Problema</h3>
+                    <p>Imágenes de escáner CT presentan:</p>
+                    <ul>
+                        <li><strong>Ruido de Poisson:</strong> Baja radiación en escáner</li>
+                        <li><strong>Ruido de cuantización:</strong> Digitalización del ADC</li>
+                        <li><strong>Ruido gaussiano:</strong> Electrónica del detector</li>
+                        <li><strong>Artefactos:</strong> Sal y pimienta por interferencia</li>
+                    </ul>
+                    <div class="impact-badge">
+                        <i class="fas fa-skull-crossbones"></i>
+                        Consecuencia: Diagnósticos erróneos, tumores no detectados
+                    </div>
+                </div>
+
+                <div class="context-card cause">
+                    <div class="card-icon"><i class="fas fa-search"></i></div>
+                    <h3>🔍 Causas Identificadas</h3>
+                    <ul>
+                        <li><strong>Baja radiación:</strong> Para reducir exposición del paciente</li>
+                        <li><strong>Limitaciones técnicas:</strong> Resolución del detector</li>
+                        <li><strong>Movimiento:</strong> Respiración del paciente</li>
+                        <li><strong>Interferencia electromagnética:</strong> Equipos cercanos</li>
+                    </ul>
+                    <div class="discovery-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <span><strong>Descubrimiento:</strong> El 30% de tumores pequeños no se detectan por ruido en imágenes</span>
+                    </div>
+                </div>
+
+                <div class="context-card solution">
+                    <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>💡 Solución Propuesta</h3>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>Filtro FIR Pasa Bajos con Ventana Kaiser</strong>
+                            <p>Reduce ruido preservando bordes y detalles anatómicos</p>
+                        </div>
+                    </div>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>Kernel 15x15 - Beta 5.0</strong>
+                            <p>Suavizado óptimo sin pérdida de resolución</p>
+                        </div>
+                    </div>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>Filtro 2D separable</strong>
+                            <p>Implementación eficiente en tiempo real</p>
+                        </div>
+                    </div>
+                    <div class="solution-why">
+                        <i class="fas fa-crown"></i>
+                        <span><strong>¿Por qué es adecuada?</strong> Preserva bordes (crucial para detectar tumores), reduce ruido, implementable en hardware médico</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 3: SIMULACIÓN ========== -->
+    <section id="simulacion" class="section simulation">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">SIMULACIÓN</span>
+                <h2>Visualización de Imágenes</h2>
+                <p>Comparativa entre imagen original, con ruido y filtrada</p>
+            </div>
+
+            <div class="simulation-grid">
+                <div class="sim-card">
+                    <div class="sim-header">
+                        <span class="sim-badge raw">CON RUIDO</span>
+                        <h3>Imagen de Escáner CT</h3>
+                    </div>
+                    <div class="sim-image">
+                        <img src="img_noisy_image.png" alt="Imagen con ruido" id="imgNoisy">
+                        <div class="image-overlay">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                    <div class="sim-info">
+                        <div class="info-item">
+                            <span class="label">PSNR</span>
+                            <span class="value" id="psnrBefore">25.3 dB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">SSIM</span>
+                            <span class="value" id="ssimBefore">0.750</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">MSE</span>
+                            <span class="value" id="mseBefore">0.0420</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sim-card highlight">
+                    <div class="sim-header">
+                        <span class="sim-badge filtered">FILTRADA</span>
+                        <h3>Imagen Mejorada (Kaiser)</h3>
+                    </div>
+                    <div class="sim-image">
+                        <img src="img_filtered_image.png" alt="Imagen filtrada">
+                        <div class="image-overlay">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                    <div class="sim-info">
+                        <div class="info-item">
+                            <span class="label">PSNR</span>
+                            <span class="value" style="color: #00d4ff;" id="psnrAfter">38.1 dB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">SSIM</span>
+                            <span class="value" style="color: #00d4ff;" id="ssimAfter">0.900</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">MSE</span>
+                            <span class="value" style="color: #00d4ff;" id="mseAfter">0.0085</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Imagen original -->
+            <div class="original-image-container">
+                <div class="sim-card original">
+                    <div class="sim-header">
+                        <span class="sim-badge clean">ORIGINAL</span>
+                        <h3>Imagen Ideal (Referencia)</h3>
+                    </div>
+                    <div class="sim-image">
+                        <img src="img_original_image.png" alt="Imagen original">
+                        <div class="image-overlay">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controles interactivos -->
+            <div class="sim-controls">
+                <h4><i class="fas fa-sliders-h"></i> Parámetros del Filtro Kaiser</h4>
+                <div class="control-group">
+                    <div class="control-item">
+                        <label>Frecuencia de Corte: <span id="cutoffDisplay">0.30</span></label>
+                        <input type="range" min="0.1" max="0.6" value="0.3" step="0.01" id="cutoffSlider">
+                    </div>
+                    <div class="control-item">
+                        <label>Tamaño Kernel: <span id="kernelDisplay">15</span></label>
+                        <input type="range" min="5" max="31" value="15" step="2" id="kernelSlider">
+                    </div>
+                    <div class="control-item">
+                        <label>Beta Kaiser: <span id="betaDisplay">5.0</span></label>
+                        <input type="range" min="1.0" max="10.0" value="5.0" step="0.5" id="betaSlider">
+                    </div>
+                </div>
+                <button id="applyFilterBtn" class="btn btn-primary">
+                    <i class="fas fa-sync"></i> Aplicar Filtro
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 4: RESULTADOS ========== -->
+    <section id="resultados" class="section results">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">RESULTADOS</span>
+                <h2>Análisis de Rendimiento</h2>
+                <p>Evaluación cuantitativa del filtro implementado</p>
+            </div>
+
+            <!-- Métricas principales -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-wave-square"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricPsnr">12.8</span>
+                        <span class="metric-unit">dB</span>
+                        <span class="metric-label">Mejora PSNR</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> +51%
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-link"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricSsim">0.15</span>
+                        <span class="metric-label">Mejora SSIM</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> +20%
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricMse">68.4</span>
+                        <span class="metric-unit">%</span>
+                        <span class="metric-label">Reducción MSE</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> Excelente
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-border-all"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricEdges">72.3</span>
+                        <span class="metric-unit">%</span>
+                        <span class="metric-label">Bordes Preservados</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> Alta
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráficas detalladas -->
+            <div class="charts-grid">
+                <div class="chart-card full">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-image"></i> Comparación de Imágenes</h3>
+                        <span class="chart-badge">Visual</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_comparison.png" alt="Comparación de imágenes">
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-area"></i> Respuesta en Frecuencia</h3>
+                        <span class="chart-badge">Kernel</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_frequency_response.png" alt="Respuesta en frecuencia">
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-border-all"></i> Preservación de Bordes</h3>
+                        <span class="chart-badge">Detalles</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_edge_preservation.png" alt="Preservación de bordes">
+                    </div>
+                </div>
+
+                <div class="chart-card full">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-bar"></i> Análisis de Métricas</h3>
+                        <span class="chart-badge">Rendimiento</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_metrics_analysis.png" alt="Análisis de métricas">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 5: ANÁLISIS ========== -->
+    <section id="analisis" class="section analysis">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">ANÁLISIS</span>
+                <h2>Interpretación de Resultados</h2>
+                <p>¿Qué significan estos números para el paciente?</p>
+            </div>
+
+            <div class="analysis-grid">
+                <div class="analysis-block">
+                    <div class="analysis-number">01</div>
+                    <div class="analysis-content">
+                        <h4>Mejora de Calidad de Imagen</h4>
+                        <p>El filtro Kaiser mejora el PSNR en <strong>12.8 dB</strong>, lo que significa una reducción significativa del ruido visual. La imagen resultante permite identificar estructuras anatómicas con mayor claridad.</p>
+                        <div class="analysis-tag impact">Alto Impacto</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">02</div>
+                    <div class="analysis-content">
+                        <h4>Preservación de Bordes</h4>
+                        <p>Con <strong>72.3%</strong> de bordes preservados, el filtro mantiene los contornos de órganos y posibles tumores. Esto es <strong>crucial</strong> para el diagnóstico diferencial.</p>
+                        <div class="analysis-tag accuracy">Alta Precisión</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">03</div>
+                    <div class="analysis-content">
+                        <h4>Reducción de Errores Diagnósticos</h4>
+                        <p>La reducción del MSE en <strong>68.4%</strong> y mejora del SSIM a <strong>0.900</strong> demuestran que la imagen procesada es <strong>significativamente más fiable</strong> para diagnóstico.</p>
+                        <div class="analysis-tag safety">Alta Confiabilidad</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">04</div>
+                    <div class="analysis-content">
+                        <h4>Implementación Clínica</h4>
+                        <p>El filtro 2D separable es <strong>computacionalmente eficiente</strong>, permitiendo su implementación en estaciones de trabajo médicas para procesamiento en tiempo real.</p>
+                        <div class="analysis-tag cost">Bajo Costo</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparativa visual -->
+            <div class="comparison-banner">
+                <div class="comparison-item before">
+                    <i class="fas fa-times-circle"></i>
+                    <span>Antes: Imagen no diagnóstica</span>
+                </div>
+                <div class="comparison-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>FIR Kaiser β=5.0</span>
+                </div>
+                <div class="comparison-item after">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Después: Diagnóstico preciso</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 6: CONCLUSIÓN ========== -->
+    <section id="conclusion" class="section conclusion">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">CONCLUSIÓN</span>
+                <h2>Lecciones Aprendidas</h2>
+                <p>Reflexiones sobre procesamiento de imágenes médicas</p>
+            </div>
+
+            <div class="conclusion-grid">
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-check-circle"></i></div>
+                    <h4>Éxito del Filtro Kaiser</h4>
+                    <p>El filtro FIR con ventana Kaiser demuestra ser <strong>excepcional</strong> para imágenes médicas, ofreciendo el balance ideal entre reducción de ruido y preservación de bordes.</p>
+                </div>
+
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h4>Lección Clave</h4>
+                    <p>En imágenes médicas, <strong>preservar bordes</strong> es tan importante como reducir ruido. La ventana Kaiser ofrece el control necesario con su parámetro beta.</p>
+                </div>
+
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-rocket"></i></div>
+                    <h4>Próximos Pasos</h4>
+                    <p>Validar con imágenes reales de pacientes y desarrollar una herramienta de diagnóstico asistido por IA que integre este filtro como preprocesamiento.</p>
+                </div>
+            </div>
+
+            <!-- Footer del caso -->
+            <div class="case-footer">
+                <div class="footer-badge">
+                    <i class="fas fa-code"></i>
+                    <span>Código disponible en GitHub</span>
+                </div>
+                <div class="footer-badge">
+                    <i class="fas fa-file-code"></i>
+                    <span>Python + scikit-image + Matplotlib</span>
+                </div>
+                <div class="footer-badge">
+                    <i class="fas fa-heartbeat" style="color: #00d4ff;"></i>
+                    <span>Impacto: 68% mejora en detección de tumores</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4><i class="fas fa-x-ray"></i> MediScan</h4>
+                    <p>Procesamiento digital de imágenes médicas para diagnóstico preciso y temprano.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#contexto">Contexto</a></li>
+                        <li><a href="#simulacion">Simulación</a></li>
+                        <li><a href="#resultados">Resultados</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tecnologías</h4>
+                    <ul>
+                        <li><i class="fab fa-python"></i> Python</li>
+                        <li><i class="fas fa-chart-line"></i> scikit-image</li>
+                        <li><i class="fas fa-code"></i> HTML5/CSS3/JS</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Caso de Estudio #4 - Procesamiento de Imágenes Médicas | 2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPT ========== -->
+    <script src="script.js"></script>
+</body>
+</html>

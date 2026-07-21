@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Filtros Digitales - Universidad Ciudadana de Nuevo León</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+    <!-- ============================================================ -->
+    <!-- ENCABEZADO / HEADER                                           -->
+    <!-- ============================================================ -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-left">
+                <img src="assets/img/logo_ucnl.png" alt="Logo UCNL" class="header-logo" />
+                <div class="header-title">
+                    <span class="header-university">Universidad Ciudadana de Nuevo León</span>
+                    <span class="header-subject">Señales y Sistemas</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <span class="header-student">Eric David Rodríguez Flores</span>
+                <span class="header-date">20 de Julio de 2026</span>
+            </div>
+            <button class="header-toggle" aria-label="Menú">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+                <li><a href="#casos" class="nav-link">Casos</a></li>
+                <li><a href="#conclusiones" class="nav-link">Conclusiones</a></li>
+                <li><a href="#referencias" class="nav-link">Referencias</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- HERO / BANNER PRINCIPAL                                       -->
+    <!-- ============================================================ -->
+    <section id="inicio" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Filtros Digitales
+                <span class="hero-subtitle">Diseño e Implementación</span>
+            </h1>
+            <p class="hero-description">
+                Análisis, diseño y aplicación de filtros digitales en
+                <strong>señales biomédicas, audio, comunicaciones, imágenes médicas y control industrial</strong>
+                utilizando Python y SciPy.
+            </p>
+            <a href="#casos" class="hero-btn">
+                <i class="fas fa-arrow-right"></i> Explorar Casos
+            </a>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- INTRODUCCIÓN                                                  -->
+    <!-- ============================================================ -->
+    <section class="section intro">
+        <div class="container">
+            <h2 class="section-title">Introducción</h2>
+            <div class="intro-content">
+                <p>
+                    El procesamiento digital de señales es una de las áreas fundamentales de la ingeniería moderna,
+                    con aplicaciones que abarcan desde la medicina hasta las telecomunicaciones. En esta actividad,
+                    se aborda el <strong>diseño e implementación de filtros digitales</strong> utilizando Python y
+                    sus librerías científicas (SciPy, NumPy, Matplotlib).
+                </p>
+                <p>
+                    Los filtros digitales permiten modificar las características espectrales de una señal,
+                    eliminando componentes no deseadas como ruido o interferencias, o extrayendo información
+                    relevante para su análisis. En este proyecto, se han desarrollado <strong>cinco casos de estudio</strong>
+                    que cubren aplicaciones en distintos dominios:
+                </p>
+                <ul>
+                    <li><strong>Monitoreo de ECG:</strong> Eliminación de ruido muscular y de línea en señales cardíacas.</li>
+                    <li><strong>Restauración de audio:</strong> Eliminación de zumbido de 60 Hz en grabaciones históricas.</li>
+                    <li><strong>Comunicaciones por radio:</strong> Aislamiento de banda en sistemas de comunicaciones.</li>
+                    <li><strong>Procesamiento de imágenes médicas:</strong> Reducción de ruido en escáneres CT.</li>
+                    <li><strong>Control industrial:</strong> Eliminación de resonancia en turbinas para mantenimiento predictivo.</li>
+                </ul>
+                <p>
+                    Cada caso ha sido desarrollado siguiendo una metodología estructurada: generación de señales
+                    o imágenes sintéticas con ruido, diseño del filtro digital, aplicación y análisis de resultados
+                    mediante métricas objetivas (SNR, MSE, PSNR, SSIM, BER, etc.).
+                </p>
+                <p>
+                    El objetivo principal es comprender el comportamiento de los filtros en los dominios del
+                    <strong>tiempo y la frecuencia</strong>, evaluando su efectividad en aplicaciones reales y
+                    justificando la elección de cada tipo de filtro según el problema planteado.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- CASOS DE ESTUDIO                                              -->
+    <!-- ============================================================ -->
+    <section id="casos" class="section casos">
+        <div class="container">
+            <h2 class="section-title">Casos de Estudio</h2>
+            <p class="section-subtitle">
+                Cinco aplicaciones de filtros digitales en el mundo real
+            </p>
+            <div class="casos-grid">
+                <!-- Caso 1 -->
+                <div class="caso-card">
+                    <div class="caso-image">
+                        <img src="assets/img/caso1_thumbnail.png" alt="Caso 1: Monitoreo de ECG" />
+                        <span class="caso-badge">Caso 1</span>
+                    </div>
+                    <div class="caso-body">
+                        <h3 class="caso-title">Monitoreo de ECG</h3>
+                        <p class="caso-desc">
+                            Filtro pasa bajos Butterworth para eliminar ruido muscular y de línea en señales
+                            electrocardiográficas, mejorando la detección de arritmias en UCI.
+                        </p>
+                        <div class="caso-tags">
+                            <span class="tag">Pasa Bajos</span>
+                            <span class="tag">Butterworth</span>
+                            <span class="tag">IIR</span>
+                        </div>
+                        <a href="Caso01_ECG/index.html" class="caso-btn">
+                            <i class="fas fa-arrow-right"></i> Ver Caso
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caso 2 -->
+                <div class="caso-card">
+                    <div class="caso-image">
+                        <img src="assets/img/caso2_thumbnail.png" alt="Caso 2: Restauración de Audio" />
+                        <span class="caso-badge">Caso 2</span>
+                    </div>
+                    <div class="caso-body">
+                        <h3 class="caso-title">Restauración de Audio</h3>
+                        <p class="caso-desc">
+                            Filtro pasa altos Chebyshev para eliminar zumbido de 60 Hz en grabaciones históricas,
+                            preservando la voz y la inteligibilidad del discurso.
+                        </p>
+                        <div class="caso-tags">
+                            <span class="tag">Pasa Altos</span>
+                            <span class="tag">Chebyshev</span>
+                            <span class="tag">IIR</span>
+                        </div>
+                        <a href="Caso02_Audio/index.html" class="caso-btn">
+                            <i class="fas fa-arrow-right"></i> Ver Caso
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caso 3 -->
+                <div class="caso-card">
+                    <div class="caso-image">
+                        <img src="assets/img/caso3_thumbnail.png" alt="Caso 3: Comunicaciones por Radio" />
+                        <span class="caso-badge">Caso 3</span>
+                    </div>
+                    <div class="caso-body">
+                        <h3 class="caso-title">Comunicaciones por Radio</h3>
+                        <p class="caso-desc">
+                            Filtro pasa bandas FIR con ventana Hamming para aislar banda de frecuencia
+                            en comunicaciones militares, eliminando interferencia de canales adyacentes.
+                        </p>
+                        <div class="caso-tags">
+                            <span class="tag">Pasa Bandas</span>
+                            <span class="tag">FIR</span>
+                            <span class="tag">Hamming</span>
+                        </div>
+                        <a href="Caso03_Radio/index.html" class="caso-btn">
+                            <i class="fas fa-arrow-right"></i> Ver Caso
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caso 4 -->
+                <div class="caso-card">
+                    <div class="caso-image">
+                        <img src="assets/img/caso4_thumbnail.png" alt="Caso 4: Procesamiento de Imágenes Médicas" />
+                        <span class="caso-badge">Caso 4</span>
+                    </div>
+                    <div class="caso-body">
+                        <h3 class="caso-title">Procesamiento de Imágenes Médicas</h3>
+                        <p class="caso-desc">
+                            Filtro pasa bajos FIR con ventana Kaiser para reducir ruido en escáneres CT,
+                            preservando bordes y detalles anatómicos para diagnóstico preciso.
+                        </p>
+                        <div class="caso-tags">
+                            <span class="tag">Pasa Bajos</span>
+                            <span class="tag">FIR</span>
+                            <span class="tag">Kaiser</span>
+                        </div>
+                        <a href="Caso04_Imagenes/index.html" class="caso-btn">
+                            <i class="fas fa-arrow-right"></i> Ver Caso
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caso 5 -->
+                <div class="caso-card">
+                    <div class="caso-image">
+                        <img src="assets/img/caso5_thumbnail.png" alt="Caso 5: Control Industrial" />
+                        <span class="caso-badge">Caso 5</span>
+                    </div>
+                    <div class="caso-body">
+                        <h3 class="caso-title">Control Industrial</h3>
+                        <p class="caso-desc">
+                            Filtro Notch (rechazo de banda) Butterworth para eliminar resonancia en turbinas,
+                            permitiendo mantenimiento predictivo y reducción de falsas alarmas.
+                        </p>
+                        <div class="caso-tags">
+                            <span class="tag">Rechazo Banda</span>
+                            <span class="tag">Butterworth</span>
+                            <span class="tag">IIR</span>
+                        </div>
+                        <a href="Caso05_Industrial/index.html" class="caso-btn">
+                            <i class="fas fa-arrow-right"></i> Ver Caso
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- RESUMEN DE CADA CASO                                          -->
+    <!-- ============================================================ -->
+    <section class="section resumen">
+        <div class="container">
+            <h2 class="section-title">Resumen de Casos</h2>
+            <p class="section-subtitle">Métricas y resultados clave de cada aplicación</p>
+
+            <div class="resumen-grid">
+                <div class="resumen-item">
+                    <div class="resumen-header">
+                        <span class="resumen-icon"><i class="fas fa-heartbeat"></i></span>
+                        <h3>Caso 1: Monitoreo de ECG</h3>
+                    </div>
+                    <div class="resumen-body">
+                        <p><strong>Problema:</strong> Ruido muscular (50-100 Hz) y ruido de línea (60 Hz)</p>
+                        <p><strong>Solución:</strong> Filtro Pasa Bajos Butterworth (fc=40 Hz, orden 4)</p>
+                        <p><strong>Métricas:</strong> SNR +33.6 dB, Correlación 0.97, Energía preservada 94.2%</p>
+                        <p><strong>Impacto:</strong> Mejora del 98% en detección de arritmias</p>
+                    </div>
+                </div>
+
+                <div class="resumen-item">
+                    <div class="resumen-header">
+                        <span class="resumen-icon"><i class="fas fa-microphone"></i></span>
+                        <h3>Caso 2: Restauración de Audio</h3>
+                    </div>
+                    <div class="resumen-body">
+                        <p><strong>Problema:</strong> Zumbido de 60 Hz y ruido de grabación analógica</p>
+                        <p><strong>Solución:</strong> Filtro Pasa Altos Chebyshev (fc=80 Hz, orden 4)</p>
+                        <p><strong>Métricas:</strong> SNR +25.8 dB, THD reducido 67.4%, Inteligibilidad +89.5%</p>
+                        <p><strong>Impacto:</strong> Preservación de grabaciones históricas</p>
+                    </div>
+                </div>
+
+                <div class="resumen-item">
+                    <div class="resumen-header">
+                        <span class="resumen-icon"><i class="fas fa-satellite-dish"></i></span>
+                        <h3>Caso 3: Comunicaciones por Radio</h3>
+                    </div>
+                    <div class="resumen-body">
+                        <p><strong>Problema:</strong> Interferencia de canales adyacentes (99.5 Hz, 100.5 Hz)</p>
+                        <p><strong>Solución:</strong> Filtro Pasa Bandas FIR Hamming (95-105 Hz, 101 taps)</p>
+                        <p><strong>Métricas:</strong> SNR +22.4 dB, BER reducido 94.3%, Aislamiento +18.6 dB</p>
+                        <p><strong>Impacto:</strong> Comunicaciones militares seguras</p>
+                    </div>
+                </div>
+
+                <div class="resumen-item">
+                    <div class="resumen-header">
+                        <span class="resumen-icon"><i class="fas fa-x-ray"></i></span>
+                        <h3>Caso 4: Procesamiento de Imágenes Médicas</h3>
+                    </div>
+                    <div class="resumen-body">
+                        <p><strong>Problema:</strong> Ruido de Poisson, Gaussiano y Sal y Pimienta</p>
+                        <p><strong>Solución:</strong> Filtro Pasa Bajos FIR Kaiser (kernel 15x15, β=5.0)</p>
+                        <p><strong>Métricas:</strong> PSNR +12.8 dB, SSIM +0.15, MSE reducido 68.4%</p>
+                        <p><strong>Impacto:</strong> Mejora en detección de tumores</p>
+                    </div>
+                </div>
+
+                <div class="resumen-item">
+                    <div class="resumen-header">
+                        <span class="resumen-icon"><i class="fas fa-industry"></i></span>
+                        <h3>Caso 5: Control Industrial</h3>
+                    </div>
+                    <div class="resumen-body">
+                        <p><strong>Problema:</strong> Resonancia en 120 Hz enmascarando vibraciones anómalas</p>
+                        <p><strong>Solución:</strong> Filtro Notch Butterworth (f0=120 Hz, BW=10 Hz)</p>
+                        <p><strong>Métricas:</strong> SNR +15.6 dB, Atenuación resonancia +22.8 dB, Anomalías reducidas 83.3%</p>
+                        <p><strong>Impacto:</strong> Mantenimiento predictivo preciso</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- CONCLUSIONES                                                  -->
+    <!-- ============================================================ -->
+    <section id="conclusiones" class="section conclusiones">
+        <div class="container">
+            <h2 class="section-title">Conclusiones</h2>
+
+            <div class="conclusiones-content">
+                <p>
+                    El desarrollo de los cinco casos de estudio ha permitido comprender
+                    <strong>la importancia y versatilidad de los filtros digitales</strong>
+                    en aplicaciones del mundo real. Cada caso ha abordado un problema
+                    específico con una solución adaptada a sus características, demostrando
+                    que no existe un filtro único para todas las aplicaciones.
+                </p>
+                <p>
+                    <strong>Principales aprendizajes:</strong>
+                </p>
+                <ul>
+                    <li>
+                        <strong>Selección del filtro adecuado:</strong> La elección entre filtros
+                        IIR y FIR depende de los requisitos de fase, estabilidad y eficiencia
+                        computacional. Los filtros IIR son más eficientes pero introducen
+                        distorsión de fase, mientras que los FIR ofrecen fase lineal a costa
+                        de mayor orden.
+                    </li>
+                    <li>
+                        <strong>Importancia del análisis en frecuencia:</strong> La respuesta en
+                        frecuencia es fundamental para comprender el comportamiento del filtro
+                        y verificar que cumple con las especificaciones de diseño.
+                    </li>
+                    <li>
+                        <strong>Métricas de evaluación:</strong> El uso de métricas objetivas
+                        (SNR, MSE, PSNR, SSIM, BER, etc.) permite cuantificar el rendimiento
+                        del filtro y comparar diferentes enfoques.
+                    </li>
+                    <li>
+                        <strong>Aplicaciones prácticas:</strong> Los filtros digitales tienen
+                        un <strong>impacto directo</strong> en la calidad de vida de las personas,
+                        desde el diagnóstico médico hasta la preservación cultural.
+                    </li>
+                </ul>
+                <p>
+                    <strong>Trabajo futuro:</strong> Se recomienda explorar la implementación
+                    de estos filtros en <strong>hardware embebido</strong> (FPGA, DSP, microcontroladores)
+                    para aplicaciones en tiempo real, así como la integración con técnicas de
+                    <strong>inteligencia artificial</strong> para el análisis automático de señales.
+                </p>
+                <p>
+                    En resumen, esta actividad ha demostrado que el <strong>diseño de filtros digitales</strong>
+                    es una herramienta poderosa y esencial en la ingeniería moderna, con aplicaciones
+                    que transforman y mejoran nuestro entorno.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- REFERENCIAS                                                   -->
+    <!-- ============================================================ -->
+    <section id="referencias" class="section referencias">
+        <div class="container">
+            <h2 class="section-title">Referencias Bibliográficas</h2>
+
+            <div class="referencias-content">
+                <div class="referencia-item">
+                    <span class="referencia-number">[1]</span>
+                    <p>
+                        Oppenheim, A. V., & Schafer, R. W. (2010).
+                        <em>Discrete-Time Signal Processing</em> (3ª ed.).
+                        Pearson Education.
+                    </p>
+                </div>
+
+                <div class="referencia-item">
+                    <span class="referencia-number">[2]</span>
+                    <p>
+                        Proakis, J. G., & Manolakis, D. G. (2007).
+                        <em>Digital Signal Processing: Principles, Algorithms, and Applications</em> (4ª ed.).
+                        Pearson Education.
+                    </p>
+                </div>
+
+                <div class="referencia-item">
+                    <span class="referencia-number">[3]</span>
+                    <p>
+                        Smith, S. W. (1997).
+                        <em>The Scientist and Engineer's Guide to Digital Signal Processing</em>.
+                        California Technical Publishing.
+                    </p>
+                </div>
+
+                <div class="referencia-item">
+                    <span class="referencia-number">[4]</span>
+                    <p>
+                        Ifeachor, E. C., & Jervis, B. W. (2002).
+                        <em>Digital Signal Processing: A Practical Approach</em> (2ª ed.).
+                        Pearson Education.
+                    </p>
+                </div>
+
+                <div class="referencia-item">
+                    <span class="referencia-number">[5]</span>
+                    <p>
+                        Mitra, S. K. (2010).
+                        <em>Digital Signal Processing: A Computer-Based Approach</em> (4ª ed.).
+                        McGraw-Hill.
+                    </p>
+                </div>
+
+                <div class="referencia-item">
+                    <span class="referencia-number">[6]</span>
+                    <p>
+                        SciPy Developers. (2024).
+                        <em>SciPy Documentation: Signal Processing</em>.
+                        Recuperado de https://docs.scipy.org/doc/scipy/reference/signal.html
+                    </p>
+                </div>
+
+                <div class="referencia-item">
+                    <span class="referencia-number">[7]</span>
+                    <p>
+                        Matplotlib Development Team. (2024).
+                        <em>Matplotlib Documentation: Visualization</em>.
+                        Recuperado de https://matplotlib.org/stable/contents.html
+                    </p>
+                </div>
+
+                <div class="referencia-item">
+                    <span class="referencia-number">[8]</span>
+                    <p>
+                        NumPy Developers. (2024).
+                        <em>NumPy Documentation: Array Computing</em>.
+                        Recuperado de https://numpy.org/doc/stable/
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- FOOTER / PIE DE PÁGINA                                        -->
+    <!-- ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="assets/img/logo_ucnl.png" alt="Logo UCNL" class="footer-logo" />
+                    <h4>Universidad Ciudadana de Nuevo León</h4>
+                    <p>Facultad de Ingeniería</p>
+                    <p>Señales y Sistemas</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Desarrollado por</h4>
+                    <p><strong>Eric David Rodríguez Flores</strong></p>
+                    <p>20 de Julio de 2026</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#casos">Casos de Estudio</a></li>
+                        <li><a href="#conclusiones">Conclusiones</a></li>
+                        <li><a href="#referencias">Referencias</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <ul class="footer-social">
+                        <li>
+                            <a href="#" aria-label="GitHub">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i> LinkedIn
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" aria-label="Correo">
+                                <i class="fas fa-envelope"></i> Correo
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>
+                    &copy; 2026 Universidad Ciudadana de Nuevo León.
+                    Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPT                                                        -->
+    <!-- ============================================================ -->
+    <script src="script.js"></script>
+</body>
+</html>

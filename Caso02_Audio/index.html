@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caso 2: Restauración de Audio - Filtro Pasa Altos Chebyshev</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ========== NAVEGACIÓN ========== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-microphone-alt" style="color: #f39c12;"></i>
+                <span>Audio Restore</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#inicio" class="active">Inicio</a></li>
+                <li><a href="#contexto">Contexto</a></li>
+                <li><a href="#simulacion">Simulación</a></li>
+                <li><a href="#resultados">Resultados</a></li>
+                <li><a href="#analisis">Análisis</a></li>
+                <li><a href="#conclusion">Conclusión</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== SECCIÓN 1: INICIO ========== -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-history"></i>
+                CASO DE ESTUDIO #2
+            </div>
+            <h1 class="hero-title">
+                Restauración de <br>
+                <span style="background: linear-gradient(135deg, #f39c12, #e67e22); 
+                             -webkit-background-clip: text; 
+                             -webkit-text-fill-color: transparent;">
+                    Audio Histórico
+                </span>
+            </h1>
+            <p class="hero-description">
+                Eliminación de zumbido de 60 Hz en grabaciones históricas 
+                mediante filtro pasa altos Chebyshev, preservando la voz 
+                y la inteligibilidad del discurso.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">80</span>
+                    <span class="stat-label">Hz Corte</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Orden</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">0.5</span>
+                    <span class="stat-label">dB Ripple</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1950</span>
+                    <span class="stat-label">Año Grabación</span>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <a href="#simulacion" class="btn btn-primary">
+                    <i class="fas fa-play"></i> Ver Simulación
+                </a>
+                <a href="#resultados" class="btn btn-secondary">
+                    <i class="fas fa-chart-line"></i> Ver Resultados
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="vinyl-record">
+                <i class="fas fa-record-vinyl"></i>
+                <div class="vinyl-spin"></div>
+            </div>
+            <div class="audio-wave">
+                <svg viewBox="0 0 400 100">
+                    <polyline points="0,50 20,20 40,80 60,30 80,70 100,20 120,60 140,40 160,80 180,30 200,70 220,20 240,60 260,40 280,80 300,30 320,70 340,40 360,60 380,30 400,50"
+                             fill="none" stroke="#f39c12" stroke-width="3"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 2: CONTEXTO ========== -->
+    <section id="contexto" class="section context">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">CONTEXTO</span>
+                <h2>El Problema del Audio Histórico</h2>
+                <p>Entendiendo la situación que afecta al patrimonio cultural</p>
+            </div>
+            
+            <div class="context-grid">
+                <div class="context-card problem">
+                    <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h3>🔴 Problema</h3>
+                    <p>Grabaciones históricas de la década de 1950 presentan:</p>
+                    <ul>
+                        <li><strong>Zumbido de 60 Hz:</strong> Transformadores de la época</li>
+                        <li><strong>Armónicos:</strong> 120 Hz, 180 Hz, 240 Hz</li>
+                        <li><strong>Ruido de cinta:</strong> Grabación analógica</li>
+                        <li><strong>Pops y clicks:</strong> Grabación en vinilo</li>
+                    </ul>
+                    <div class="impact-badge">
+                        <i class="fas fa-book"></i>
+                        Consecuencia: Pérdida de patrimonio cultural e histórico
+                    </div>
+                </div>
+
+                <div class="context-card cause">
+                    <div class="card-icon"><i class="fas fa-search"></i></div>
+                    <h3>🔍 Causas Identificadas</h3>
+                    <ul>
+                        <li><strong>Equipos de la época:</strong> Fuentes de poder no reguladas</li>
+                        <li><strong>Frecuencia de línea:</strong> 60 Hz en América del Norte</li>
+                        <li><strong>Tecnología analógica:</strong> Cintas magnéticas degradadas</li>
+                        <li><strong>Condiciones de grabación:</strong> Estudios con mala aislación</li>
+                    </ul>
+                    <div class="discovery-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <span><strong>Descubrimiento:</strong> El 85% de grabaciones históricas tienen zumbido de 60 Hz</span>
+                    </div>
+                </div>
+
+                <div class="context-card solution">
+                    <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>💡 Solución Propuesta</h3>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>Filtro Pasa Altos Chebyshev Tipo I</strong>
+                            <p>Elimina frecuencias < 80 Hz preservando la voz</p>
+                        </div>
+                    </div>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>Orden 4 - Ripple 0.5 dB</strong>
+                            <p>Rápido roll-off con pequeña ondulación controlada</p>
+                        </div>
+                    </div>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>Preservación de Voz</strong>
+                            <p>Mantiene frecuencias de voz (80-3400 Hz) intactas</p>
+                        </div>
+                    </div>
+                    <div class="solution-why">
+                        <i class="fas fa-crown"></i>
+                        <span><strong>¿Por qué es adecuada?</strong> Elimina zumbido sin distorsionar la voz, ideal para restauración de archivos históricos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 3: SIMULACIÓN ========== -->
+    <section id="simulacion" class="section simulation">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">SIMULACIÓN</span>
+                <h2>Visualización del Audio</h2>
+                <p>Comparativa entre el audio original y el restaurado</p>
+            </div>
+
+            <div class="simulation-grid">
+                <div class="sim-card">
+                    <div class="sim-header">
+                        <span class="sim-badge raw">CON RUIDO</span>
+                        <h3>Audio con Zumbido de 60 Hz</h3>
+                    </div>
+                    <div class="sim-image">
+                        <img src="img_audio_comparison.png" alt="Audio con ruido" id="imgAudioComparison">
+                        <div class="image-overlay">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                    <div class="sim-info">
+                        <div class="info-item">
+                            <span class="label">SNR</span>
+                            <span class="value" id="snrBefore">-8.2 dB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">THD</span>
+                            <span class="value" id="thdBefore">72.5%</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Inteligibilidad</span>
+                            <span class="value" id="intelligibilityBefore">23%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sim-card highlight">
+                    <div class="sim-header">
+                        <span class="sim-badge filtered">RESTAURADO</span>
+                        <h3>Audio Filtrado (Chebyshev)</h3>
+                    </div>
+                    <div class="sim-image">
+                        <img src="img_audio_comparison.png" alt="Audio restaurado">
+                        <div class="image-overlay">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                    <div class="sim-info">
+                        <div class="info-item">
+                            <span class="label">SNR</span>
+                            <span class="value" style="color: #2ecc71;" id="snrAfter">17.6 dB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">THD</span>
+                            <span class="value" style="color: #2ecc71;" id="thdAfter">5.1%</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Inteligibilidad</span>
+                            <span class="value" style="color: #2ecc71;" id="intelligibilityAfter">89.5%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controles interactivos -->
+            <div class="sim-controls">
+                <h4><i class="fas fa-sliders-h"></i> Parámetros del Filtro</h4>
+                <div class="control-group">
+                    <div class="control-item">
+                        <label>Frecuencia de Corte: <span id="cutoffDisplay">80</span> Hz</label>
+                        <input type="range" min="40" max="150" value="80" id="cutoffSlider">
+                    </div>
+                    <div class="control-item">
+                        <label>Orden del Filtro: <span id="orderDisplay">4</span></label>
+                        <input type="range" min="2" max="8" value="4" id="orderSlider">
+                    </div>
+                    <div class="control-item">
+                        <label>Ripple: <span id="rippleDisplay">0.5</span> dB</label>
+                        <input type="range" min="0.1" max="2.0" value="0.5" step="0.1" id="rippleSlider">
+                    </div>
+                </div>
+                <button id="applyFilterBtn" class="btn btn-primary">
+                    <i class="fas fa-sync"></i> Aplicar Filtro
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 4: RESULTADOS ========== -->
+    <section id="resultados" class="section results">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">RESULTADOS</span>
+                <h2>Análisis de Rendimiento</h2>
+                <p>Evaluación cuantitativa del filtro implementado</p>
+            </div>
+
+            <!-- Métricas principales -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-wave-square"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricSnr">25.8</span>
+                        <span class="metric-unit">dB</span>
+                        <span class="metric-label">Mejora de SNR</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> +312%
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-link"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricCorr">0.94</span>
+                        <span class="metric-label">Correlación</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> Excelente
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricEnergy">82.3</span>
+                        <span class="metric-unit">%</span>
+                        <span class="metric-label">Energía Preservada</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> Alta
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-volume-up"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricTHD">67.4</span>
+                        <span class="metric-unit">%</span>
+                        <span class="metric-label">Reducción THD</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> +93%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráficas detalladas -->
+            <div class="charts-grid">
+                <div class="chart-card full">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-area"></i> Espectrograma Comparativo</h3>
+                        <span class="chart-badge">Dominio Tiempo-Frecuencia</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_spectrogram_comparison.png" alt="Espectrograma comparativo">
+                    </div>
+                    <div class="chart-analysis">
+                        <div class="analysis-point">
+                            <span class="point-marker" style="background: #e74c3c;"></span>
+                            <span>Línea de 60 Hz <strong>eliminada completamente</strong></span>
+                        </div>
+                        <div class="analysis-point">
+                            <span class="point-marker" style="background: #2ecc71;"></span>
+                            <span>Voz preservada en <strong>80-3400 Hz</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-bar"></i> Análisis de Métricas</h3>
+                        <span class="chart-badge">Rendimiento</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_noise_analysis.png" alt="Análisis de ruido">
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-microphone"></i> Preservación de Voz</h3>
+                        <span class="chart-badge">Inteligibilidad</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_voice_preservation.png" alt="Preservación de voz">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 5: ANÁLISIS ========== -->
+    <section id="analisis" class="section analysis">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">ANÁLISIS</span>
+                <h2>Interpretación de Resultados</h2>
+                <p>¿Qué significan estos números para la restauración histórica?</p>
+            </div>
+
+            <div class="analysis-grid">
+                <div class="analysis-block">
+                    <div class="analysis-number">01</div>
+                    <div class="analysis-content">
+                        <h4>Eliminación del Zumbido de 60 Hz</h4>
+                        <p>El filtro Chebyshev atenda el zumbido en <strong>42.3 dB</strong>, eliminando la principal fuente de distorsión en grabaciones históricas. La línea de 60 Hz desaparece completamente del espectrograma.</p>
+                        <div class="analysis-tag impact">Alto Impacto</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">02</div>
+                    <div class="analysis-content">
+                        <h4>Preservación de la Voz</h4>
+                        <p>Con una correlación de <strong>0.94</strong> y energía preservada del <strong>82.3%</strong>, el filtro mantiene la esencia del discurso. La voz humana (80-3400 Hz) permanece intacta.</p>
+                        <div class="analysis-tag accuracy">Alta Fidelidad</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">03</div>
+                    <div class="analysis-content">
+                        <h4>Mejora de Inteligibilidad</h4>
+                        <p>La inteligibilidad del discurso pasa del <strong>23% al 89.5%</strong>, permitiendo que investigadores, historiadores y el público general comprendan el contenido de grabaciones históricas.</p>
+                        <div class="analysis-tag safety">Preservación Cultural</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">04</div>
+                    <div class="analysis-content">
+                        <h4>Eliminación de THD</h4>
+                        <p>La distorsión armónica total se reduce del <strong>72.5% al 5.1%</strong>, eliminando prácticamente todos los armónicos del zumbido y ruido de grabación.</p>
+                        <div class="analysis-tag cost">Calidad Profesional</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparativa visual -->
+            <div class="comparison-banner">
+                <div class="comparison-item before">
+                    <i class="fas fa-times-circle"></i>
+                    <span>Antes: Audio no inteligible</span>
+                </div>
+                <div class="comparison-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>Filtro Chebyshev fc=80Hz</span>
+                </div>
+                <div class="comparison-item after">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Después: Discurso claro y comprensible</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 6: CONCLUSIÓN ========== -->
+    <section id="conclusion" class="section conclusion">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">CONCLUSIÓN</span>
+                <h2>Lecciones Aprendidas</h2>
+                <p>Reflexiones sobre la restauración de audio</p>
+            </div>
+
+            <div class="conclusion-grid">
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-check-circle"></i></div>
+                    <h4>Éxito del Filtro</h4>
+                    <p>El filtro Chebyshev pasa altos de orden 4 demuestra ser excepcional para restaurar grabaciones históricas, eliminando zumbido sin comprometer la calidad de la voz.</p>
+                </div>
+
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h4>Lección Clave</h4>
+                    <p>La restauración de audio histórico requiere un equilibrio entre eliminación de ruido y preservación de contenido. El filtro Chebyshev ofrece este balance con su respuesta rápida y ripple controlado.</p>
+                </div>
+
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-rocket"></i></div>
+                    <h4>Próximos Pasos</h4>
+                    <p>Aplicar el filtro a grabaciones históricas reales de archivos nacionales y desarrollar una herramienta de restauración automatizada para bibliotecas y museos.</p>
+                </div>
+            </div>
+
+            <!-- Footer del caso -->
+            <div class="case-footer">
+                <div class="footer-badge">
+                    <i class="fas fa-code"></i>
+                    <span>Código disponible en GitHub</span>
+                </div>
+                <div class="footer-badge">
+                    <i class="fas fa-file-code"></i>
+                    <span>Python + SciPy + Matplotlib</span>
+                </div>
+                <div class="footer-badge">
+                    <i class="fas fa-history" style="color: #f39c12;"></i>
+                    <span>Impacto: 85% de grabaciones históricas recuperables</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4><i class="fas fa-microphone-alt"></i> Audio Restore</h4>
+                    <p>Restauración digital de grabaciones históricas para preservación del patrimonio cultural.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#contexto">Contexto</a></li>
+                        <li><a href="#simulacion">Simulación</a></li>
+                        <li><a href="#resultados">Resultados</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tecnologías</h4>
+                    <ul>
+                        <li><i class="fab fa-python"></i> Python</li>
+                        <li><i class="fas fa-chart-line"></i> SciPy</li>
+                        <li><i class="fas fa-code"></i> HTML5/CSS3/JS</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Caso de Estudio #2 - Restauración de Audio Histórico | 2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPT ========== -->
+    <script src="script.js"></script>
+</body>
+</html>

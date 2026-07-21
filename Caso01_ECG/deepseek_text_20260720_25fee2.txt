@@ -1,0 +1,5 @@
+
+## 🚀 Ejecución
+```bash
+pip install -r requirements.txt
+python ecg_filter.py

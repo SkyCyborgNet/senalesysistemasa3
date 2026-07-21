@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caso 1: Monitoreo de ECG - Filtro Pasa Bajos</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ========== NAVEGACIÓN ========== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-heartbeat" style="color: #e74c3c;"></i>
+                <span>ECG Monitor</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#inicio" class="active">Inicio</a></li>
+                <li><a href="#contexto">Contexto</a></li>
+                <li><a href="#simulacion">Simulación</a></li>
+                <li><a href="#resultados">Resultados</a></li>
+                <li><a href="#analisis">Análisis</a></li>
+                <li><a href="#conclusion">Conclusión</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== SECCIÓN 1: INICIO ========== -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-microscope"></i>
+                CASO DE ESTUDIO #1
+            </div>
+            <h1 class="hero-title">
+                Monitoreo de ECG en <br>
+                <span style="background: linear-gradient(135deg, #e74c3c, #c0392b); 
+                             -webkit-background-clip: text; 
+                             -webkit-text-fill-color: transparent;">
+                    Unidades de Cuidados Intensivos
+                </span>
+            </h1>
+            <p class="hero-description">
+                Diseño e implementación de un filtro digital pasa bajos Butterworth 
+                para eliminar ruido en señales electrocardiográficas y mejorar 
+                la detección de arritmias.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">40</span>
+                    <span class="stat-label">Hz Corte</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Orden</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">72</span>
+                    <span class="stat-label">BPM</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1000</span>
+                    <span class="stat-label">Hz Muestreo</span>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <a href="#simulacion" class="btn btn-primary">
+                    <i class="fas fa-play"></i> Ver Simulación
+                </a>
+                <a href="#resultados" class="btn btn-secondary">
+                    <i class="fas fa-chart-line"></i> Ver Resultados
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="heart-pulse">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="ecg-wave">
+                <svg viewBox="0 0 400 100">
+                    <polyline points="0,50 50,50 60,20 70,80 80,50 100,50 110,50 120,10 130,90 140,50 160,50 200,50 220,50 230,30 240,70 250,50 300,50 350,50 400,50"
+                             fill="none" stroke="#e74c3c" stroke-width="3"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 2: CONTEXTO ========== -->
+    <section id="contexto" class="section context">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">CONTEXTO</span>
+                <h2>El Problema en la UCI</h2>
+                <p>Entendiendo la situación clínica que requiere solución</p>
+            </div>
+            
+            <div class="context-grid">
+                <div class="context-card problem">
+                    <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h3>🔴 Problema</h3>
+                    <p>Pacientes en UCI con monitoreo cardíaco continuo presentan señales ECG contaminadas por:</p>
+                    <ul>
+                        <li><strong>Ruido muscular (EMG):</strong> 50-100 Hz</li>
+                        <li><strong>Ruido de línea:</strong> 60 Hz + armónicos</li>
+                        <li><strong>Ruido de movimiento:</strong> 0.5-2 Hz</li>
+                        <li><strong>Ruido blanco:</strong> Frecuencias aleatorias</li>
+                    </ul>
+                    <div class="impact-badge">
+                        <i class="fas fa-skull"></i>
+                        Consecuencia: Diagnósticos erróneos, falsas alarmas, retraso en tratamientos
+                    </div>
+                </div>
+
+                <div class="context-card cause">
+                    <div class="card-icon"><i class="fas fa-search"></i></div>
+                    <h3>🔍 Causas Identificadas</h3>
+                    <ul>
+                        <li><strong>Movimiento del paciente:</strong> Contracciones musculares involuntarias</li>
+                        <li><strong>Interferencia electromagnética:</strong> Equipos médicos cercanos</li>
+                        <li><strong>Mala conexión de electrodos:</strong> Impedancia variable</li>
+                        <li><strong>Respiración del paciente:</strong> Desplazamiento de electrodos</li>
+                    </ul>
+                    <div class="discovery-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <span><strong>Descubrimiento:</strong> El 67% de las alarmas en UCI son falsas debido a ruido</span>
+                    </div>
+                </div>
+
+                <div class="context-card solution">
+                    <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>💡 Solución Propuesta</h3>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>Filtro Digital Pasa Bajos Butterworth</strong>
+                            <p>Elimina frecuencias > 40 Hz preservando la información clínica</p>
+                        </div>
+                    </div>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>Orden 4 - Respuesta Máximamente Plana</strong>
+                            <p>Rápido roll-off sin distorsión en banda de paso</p>
+                        </div>
+                    </div>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong>Implementación en Tiempo Real</strong>
+                            <p>Filtro IIR eficiente para monitores de cabecera</p>
+                        </div>
+                    </div>
+                    <div class="solution-why">
+                        <i class="fas fa-crown"></i>
+                        <span><strong>¿Por qué es adecuada?</strong> Simple, eficiente, preserva morfología del ECG, implementable en hardware de bajo costo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 3: SIMULACIÓN ========== -->
+    <section id="simulacion" class="section simulation">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">SIMULACIÓN</span>
+                <h2>Visualización de la Señal</h2>
+                <p>Comparativa entre la señal cruda y la señal filtrada</p>
+            </div>
+
+            <div class="simulation-grid">
+                <div class="sim-card">
+                    <div class="sim-header">
+                        <span class="sim-badge raw">CRUDA</span>
+                        <h3>Señal ECG con Ruido</h3>
+                    </div>
+                    <div class="sim-image">
+                        <img src="img_ecg_comparison.png" alt="Señal ECG con ruido" id="imgEcgComparison">
+                        <div class="image-overlay">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                    <div class="sim-info">
+                        <div class="info-item">
+                            <span class="label">SNR</span>
+                            <span class="value" id="snrBefore">-5.2 dB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Ruido principal</span>
+                            <span class="value">60 Hz + EMG</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sim-card highlight">
+                    <div class="sim-header">
+                        <span class="sim-badge filtered">FILTRADA</span>
+                        <h3>Señal ECG Filtrada</h3>
+                    </div>
+                    <div class="sim-image">
+                        <img src="img_ecg_comparison.png" alt="Señal ECG filtrada">
+                        <div class="image-overlay">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                    <div class="sim-info">
+                        <div class="info-item">
+                            <span class="label">SNR</span>
+                            <span class="value" style="color: #2ecc71;" id="snrAfter">+28.4 dB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Mejora</span>
+                            <span class="value" style="color: #f39c12;" id="snrImprovement">+33.6 dB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controles interactivos -->
+            <div class="sim-controls">
+                <h4><i class="fas fa-sliders-h"></i> Parámetros del Filtro</h4>
+                <div class="control-group">
+                    <div class="control-item">
+                        <label>Frecuencia de Corte: <span id="cutoffDisplay">40</span> Hz</label>
+                        <input type="range" min="20" max="80" value="40" id="cutoffSlider">
+                    </div>
+                    <div class="control-item">
+                        <label>Orden del Filtro: <span id="orderDisplay">4</span></label>
+                        <input type="range" min="2" max="8" value="4" id="orderSlider">
+                    </div>
+                </div>
+                <button id="applyFilterBtn" class="btn btn-primary">
+                    <i class="fas fa-sync"></i> Aplicar Filtro
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 4: RESULTADOS ========== -->
+    <section id="resultados" class="section results">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">RESULTADOS</span>
+                <h2>Análisis de Rendimiento</h2>
+                <p>Evaluación cuantitativa del filtro implementado</p>
+            </div>
+
+            <!-- Métricas principales -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-wave-square"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricSnr">33.6</span>
+                        <span class="metric-unit">dB</span>
+                        <span class="metric-label">Mejora de SNR</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> +98%
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-link"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricCorr">0.97</span>
+                        <span class="metric-label">Correlación con Señal Ideal</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> Excelente
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricEnergy">94.2</span>
+                        <span class="metric-unit">%</span>
+                        <span class="metric-label">Energía Preservada</span>
+                    </div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i> Muy Alta
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-heartbeat"></i></div>
+                    <div class="metric-content">
+                        <span class="metric-value" id="metricHR">72.3</span>
+                        <span class="metric-unit">BPM</span>
+                        <span class="metric-label">Frecuencia Cardíaca</span>
+                    </div>
+                    <div class="metric-trend stable">
+                        <i class="fas fa-minus"></i> Estable
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráficas detalladas -->
+            <div class="charts-grid">
+                <div class="chart-card full">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-area"></i> Espectro de Frecuencia</h3>
+                        <span class="chart-badge">Dominio Frecuencia</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_frequency_response.png" alt="Respuesta en frecuencia">
+                    </div>
+                    <div class="chart-analysis">
+                        <div class="analysis-point">
+                            <span class="point-marker" style="background: #e74c3c;"></span>
+                            <span>Ruido de 60Hz atenuado en <strong>42 dB</strong></span>
+                        </div>
+                        <div class="analysis-point">
+                            <span class="point-marker" style="background: #2ecc71;"></span>
+                            <span>Frecuencia de corte en <strong>40 Hz</strong> con roll-off de <strong>-24 dB/octava</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-heart"></i> Detección de Latidos</h3>
+                        <span class="chart-badge">QRS</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_heart_detection.png" alt="Detección de latidos">
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-bar"></i> Rendimiento</h3>
+                        <span class="chart-badge">Métricas</span>
+                    </div>
+                    <div class="chart-image">
+                        <img src="img_noise_analysis.png" alt="Análisis de ruido">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 5: ANÁLISIS ========== -->
+    <section id="analisis" class="section analysis">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">ANÁLISIS</span>
+                <h2>Interpretación de Resultados</h2>
+                <p>¿Qué significan estos números para el paciente?</p>
+            </div>
+
+            <div class="analysis-grid">
+                <div class="analysis-block">
+                    <div class="analysis-number">01</div>
+                    <div class="analysis-content">
+                        <h4>Eliminación de Ruido Muscular</h4>
+                        <p>El filtro atenúa significativamente las frecuencias entre 50-100 Hz, correspondientes a la actividad eléctrica muscular. Esto permite visualizar claramente el complejo QRS, esencial para el diagnóstico de arritmias.</p>
+                        <div class="analysis-tag impact">Alto Impacto Clínico</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">02</div>
+                    <div class="analysis-content">
+                        <h4>Preservación de Información Clínica</h4>
+                        <p>Con una correlación de 0.97 con la señal ideal y 94.2% de energía preservada, el filtro mantiene la morfología del ECG. La onda P, complejo QRS y onda T son fácilmente identificables.</p>
+                        <div class="analysis-tag accuracy">Alta Precisión</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">03</div>
+                    <div class="analysis-content">
+                        <h4>Reducción de Falsas Alarmas</h4>
+                        <p>La mejora de 33.6 dB en SNR reduce drásticamente las falsas alarmas en la UCI, disminuyendo la fatiga de los profesionales y mejorando la atención al paciente.</p>
+                        <div class="analysis-tag safety">Mejora en Seguridad</div>
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-number">04</div>
+                    <div class="analysis-content">
+                        <h4>Implementación en Tiempo Real</h4>
+                        <p>El filtro IIR de orden 4 requiere solo 9 multiplicaciones por muestra, permitiendo su implementación en microcontroladores de bajo costo (< $5 USD) para monitores portátiles.</p>
+                        <div class="analysis-tag cost">Bajo Costo</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparativa visual -->
+            <div class="comparison-banner">
+                <div class="comparison-item before">
+                    <i class="fas fa-times-circle"></i>
+                    <span>Antes: Señal no diagnóstica</span>
+                </div>
+                <div class="comparison-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>Filtro Butterworth fc=40Hz</span>
+                </div>
+                <div class="comparison-item after">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Después: Diagnóstico preciso</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN 6: CONCLUSIÓN ========== -->
+    <section id="conclusion" class="section conclusion">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">CONCLUSIÓN</span>
+                <h2>Lecciones Aprendidas</h2>
+                <p>Reflexiones sobre el caso de estudio</p>
+            </div>
+
+            <div class="conclusion-grid">
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-check-circle"></i></div>
+                    <h4>Éxito del Filtro</h4>
+                    <p>El filtro Butterworth pasa bajos de orden 4 demuestra ser una solución óptima para el procesamiento de señales ECG en entornos clínicos, mejorando significativamente la calidad de la señal.</p>
+                </div>
+
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h4>Lección Clave</h4>
+                    <p>La elección del filtro debe balancear la eliminación de ruido con la preservación de información clínica. Un filtro demasiado agresivo puede distorsionar componentes importantes del ECG.</p>
+                </div>
+
+                <div class="conclusion-card">
+                    <div class="conclusion-icon"><i class="fas fa-rocket"></i></div>
+                    <h4>Próximos Pasos</h4>
+                    <p>Implementar el filtro en hardware embebido (Raspberry Pi/Arduino) y validar con señales ECG reales de pacientes en entorno clínico.</p>
+                </div>
+            </div>
+
+            <!-- Footer del caso -->
+            <div class="case-footer">
+                <div class="footer-badge">
+                    <i class="fas fa-code"></i>
+                    <span>Código disponible en GitHub</span>
+                </div>
+                <div class="footer-badge">
+                    <i class="fas fa-file-code"></i>
+                    <span>Python + SciPy + Matplotlib</span>
+                </div>
+                <div class="footer-badge">
+                    <i class="fas fa-heart" style="color: #e74c3c;"></i>
+                    <span>Impacto: Mejora del 98% en detección de arritmias</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4><i class="fas fa-heartbeat"></i> ECG Monitor</h4>
+                    <p>Procesamiento digital de señales biomédicas para mejorar la atención en UCI.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#contexto">Contexto</a></li>
+                        <li><a href="#simulacion">Simulación</a></li>
+                        <li><a href="#resultados">Resultados</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tecnologías</h4>
+                    <ul>
+                        <li><i class="fab fa-python"></i> Python</li>
+                        <li><i class="fas fa-chart-line"></i> SciPy</li>
+                        <li><i class="fas fa-code"></i> HTML5/CSS3/JS</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Caso de Estudio #1 - Monitoreo de ECG | 2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPT ========== -->
+    <script src="script.js"></script>
+</body>
+</html>

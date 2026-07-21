@@ -1,0 +1,18 @@
+/Caso05_Industrial/
+│
+├── index.html                    # Página principal del Caso 5
+├── style.css                     # Estilos visuales (tema industrial/energía)
+├── script.js                     # Interactividad y gráficos
+│
+├── industrial_filter.py          # ✅ Código Python principal
+├── requirements.txt              # Dependencias Python
+│
+├── data_industrial.csv           # ✅ GENERADO POR industrial_filter.py
+│
+├── img_vibration_comparison.png  # ✅ GENERADO POR industrial_filter.py
+├── img_frequency_response.png    # ✅ GENERADO POR industrial_filter.py
+├── img_spectrum_analysis.png     # ✅ GENERADO POR industrial_filter.py
+├── img_noise_analysis.png        # ✅ GENERADO POR industrial_filter.py
+├── img_metrics_analysis.png      # ✅ GENERADO POR industrial_filter.py
+│
+└── README.md                     # Documentación del caso

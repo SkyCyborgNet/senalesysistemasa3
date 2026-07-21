@@ -1,0 +1,20 @@
+/radio_communications/
+│
+├── index.html                    # Página principal del Caso 3
+├── style.css                     # Estilos visuales (tema militar/comunicaciones)
+├── script.js                     # Interactividad y gráficos
+│
+├── radio_filter.py               # ✅ Código Python principal
+├── requirements.txt              # Dependencias Python
+│
+├── data_radio.csv                # ✅ GENERADO POR radio_filter.py
+│                                 # Contiene: Time, Signal_Clean, Signal_Noisy, Signal_Filtered
+│
+├── img_radio_comparison.png      # ✅ GENERADO POR radio_filter.py
+├── img_frequency_response.png    # ✅ GENERADO POR radio_filter.py
+├── img_spectrum_analysis.png     # ✅ GENERADO POR radio_filter.py
+├── img_constellation.png         # ✅ GENERADO POR radio_filter.py
+├── img_ber_analysis.png          # ✅ GENERADO POR radio_filter.py
+├── img_filter_design.png         # ✅ GENERADO POR radio_filter.py
+│
+└── README.md                     # Documentación del caso
